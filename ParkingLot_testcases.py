@@ -2,7 +2,7 @@ import unittest
 from ParkingLot import ParkingLotSystem
 
 class TestParkingLotSystem(unittest.TestCase):
-    ''' Class to test ParkingLot System '''
+    ''' Class to test Parking Lot System '''
     
     def setUp(self):
         self.parkingLotSystem = ParkingLotSystem()
@@ -35,7 +35,7 @@ class TestParkingLotSystem(unittest.TestCase):
         ret_data = self.parkingLotSystem.Park("ABCB13523", 34)
 
         #Check if no slot is allocated as there is no available space
-        self.assertEqual(ret_data, 0)
+        self.assertEqual(ret_data, None)
 
     def test_2_slot_numbers_for_driver_of_age(self):
         ''' Test if slot numbers of cars whose driver age is given are retrieved correctly'''
@@ -61,9 +61,10 @@ class TestParkingLotSystem(unittest.TestCase):
             driver_age = 20 + (number%2)
             self.parkingLotSystem.Park(veh_reg_no, driver_age)
         self.assertEqual(self.parkingLotSystem.SlotNumberForCarWithNumber("APZ1254U0"), '1')
-        self.assertEqual(self.parkingLotSystem.SlotNumberForCarWithNumber("APZ1254N0"), None)
         self.assertEqual(self.parkingLotSystem.SlotNumberForCarWithNumber("APZ1254U9"), '10')
 
+        #No car with given vehicle number exists
+        self.assertEqual(self.parkingLotSystem.SlotNumberForCarWithNumber("APZ1254N0"), None)
 
     def test_4_leave(self):
         ''' Test leave the car at a particular slot '''
@@ -86,6 +87,7 @@ class TestParkingLotSystem(unittest.TestCase):
 
     def test_5_vehicle_registration_number_for_driver_of_age(self):
         ''' Test if vehicle registration numbers of cars whose driver age is given are retrieved correctly '''
+        
         self.parkingLotSystem.CreateParkingLot(10)
         for number in range(0, 4):
             veh_reg_no = "APZ1254U" + str(number)

@@ -27,7 +27,7 @@ class ParkingLotSystem:
         ''' Allocates nearest available slot and stores the information about driver and car '''
 
         if len(self.available_slots) == 0:
-            return 0
+            return None
         nearest_available_slot = heapq.heappop(self.available_slots)
         self.slot_info[nearest_available_slot] = (veh_reg_no, driver_age)
         self.vehicle_numbers[veh_reg_no] = nearest_available_slot
@@ -43,21 +43,21 @@ class ParkingLotSystem:
     def SlotNumbersForDriverOfAge(self, driver_age):
         
         ''' Retrieves all the slot numbers of drivers of given age '''
-        
-        if self.age_groups.get(driver_age) is not None:
+
+        ret_data = None
+        if self.age_groups.get(driver_age) is not None and len(self.age_groups.get(driver_age)) > 0:
             ret_data = ",".join(str(driver_info[1]) for driver_info in self.age_groups[driver_age])
-        else:
-            ret_data = None
+
         return ret_data
 
     def SlotNumberForCarWithNumber(self, veh_no):
 
         ''' Retrieves slot number of car with given Vehicle Number '''
-        
+
+        ret_data = None
         if self.vehicle_numbers.get(veh_no) is not None:
             ret_data = "{}".format(self.vehicle_numbers[veh_no])
-        else:
-            ret_data = None
+        
         return ret_data
 
     def Leave(self, slot_num):
@@ -78,14 +78,17 @@ class ParkingLotSystem:
     def VehicleRegistrationNumberForDriverOfAge(self, driver_age):
 
         ''' Retrieves vehicle registration numbers of all cars whose driver's age is given '''
-        
-        if self.age_groups.get(driver_age) is not None:
+
+        ret_data = None
+        if self.age_groups.get(driver_age) is not None and len(self.age_groups.get(driver_age)) > 0:
             ret_data = ",".join(str(driver_info[0]) for driver_info in self.age_groups[driver_age])
-        else:
-            ret_data = None
+        
         return ret_data
 
     def ClearAllData(self):
+        
+        ''' Clears all the allocated data '''
+        
         self.available_slots.clear()
         self.slot_info.clear()
         self.vehicle_numbers.clear()
