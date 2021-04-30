@@ -26,3 +26,4 @@ Slot Number of a given Vehicle:
 Download all the files to local system
 Run the following command in terminal:
 python main.py <path_to_input_file_in_local_system>
+python -m unittest ParkingLot_testcases.py
