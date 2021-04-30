@@ -23,7 +23,9 @@ Slot Number of a given Vehicle:
     Given a vehicle number, retrieve the slot in which it is parked.
   
 **How to execute the program:**
-Download all the files to local system
-Run the following command in terminal:
+1. Download all the files to local system.
+2. Download latest version of python   
+3. Open Command center in the main.py folder
+4. Run the following commands in terminal:
 python main.py <path_to_input_file_in_local_system>
 python -m unittest ParkingLot_testcases.py
