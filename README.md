@@ -22,3 +22,7 @@ Vehicle Registration Numbers for drivers with a given age:
 Slot Number of a given Vehicle:
     Given a vehicle number, retrieve the slot in which it is parked.
   
+**How to execute the program:**
+Download all the files to local system
+Run the following command in terminal:
+python main <path_to_input_file_in_local_system>
