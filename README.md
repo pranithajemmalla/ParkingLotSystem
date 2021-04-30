@@ -25,4 +25,4 @@ Slot Number of a given Vehicle:
 **How to execute the program:**
 Download all the files to local system
 Run the following command in terminal:
-python main <path_to_input_file_in_local_system>
+python main.py <path_to_input_file_in_local_system>
