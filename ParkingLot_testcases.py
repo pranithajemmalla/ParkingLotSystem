@@ -9,6 +9,13 @@ class TestParkingLotSystem(unittest.TestCase):
         
     def test_0_create_parking_lot(self):
         ''' Test if CreateParkingLot() creates the given number of slots '''
+
+        # If invalid number of slots is given
+        ret_data = self.parkingLotSystem.CreateParkingLot(0)
+        self.assertEqual(ret_data, None)
+
+        ret_data = self.parkingLotSystem.CreateParkingLot(-23)
+        self.assertEqual(ret_data, None)
         
         ret_data = self.parkingLotSystem.CreateParkingLot(10)
         self.assertEqual(ret_data[0], 10)
@@ -25,9 +32,14 @@ class TestParkingLotSystem(unittest.TestCase):
             self.assertEqual(number + 1, ret_data[1]) 
         self.parkingLotSystem.Leave(9)
         self.parkingLotSystem.Leave(3)
-        ret_data = self.parkingLotSystem.Park("ABCD13523", 34)
+        
 
-        #check if the nearest available slot is allocated 
+        #Invalid driver's age case
+        ret_data = self.parkingLotSystem.Park("ABCD13523", -53)
+        self.assertEqual(ret_data, None)
+
+        #check if the nearest available slot is allocated
+        ret_data = self.parkingLotSystem.Park("ABCD13523", 34)
         self.assertNotEqual(ret_data, 0)
         self.assertEqual(3, ret_data[1])
         
@@ -45,6 +57,7 @@ class TestParkingLotSystem(unittest.TestCase):
             veh_reg_no = "APZ1254U" + str(number)
             driver_age = 20 + (number%2)
             self.parkingLotSystem.Park(veh_reg_no, driver_age)
+            
         self.assertEqual(self.parkingLotSystem.SlotNumbersForDriverOfAge(20), '1,3,5,7,9')
         self.assertEqual(self.parkingLotSystem.SlotNumbersForDriverOfAge(21), '2,4,6,8,10')
 
@@ -60,6 +73,7 @@ class TestParkingLotSystem(unittest.TestCase):
             veh_reg_no = "APZ1254U" + str(number)
             driver_age = 20 + (number%2)
             self.parkingLotSystem.Park(veh_reg_no, driver_age)
+            
         self.assertEqual(self.parkingLotSystem.SlotNumberForCarWithNumber("APZ1254U0"), '1')
         self.assertEqual(self.parkingLotSystem.SlotNumberForCarWithNumber("APZ1254U9"), '10')
 
@@ -74,15 +88,16 @@ class TestParkingLotSystem(unittest.TestCase):
             veh_reg_no = "APZ1254U" + str(number)
             driver_age = 20 + (number%2)
             self.parkingLotSystem.Park(veh_reg_no, driver_age)
+            
         ret = self.parkingLotSystem.Leave(9)
         self.assertEqual(ret[1], "APZ1254U8")
         ret = self.parkingLotSystem.Leave(2)
         self.assertEqual(ret[1], "APZ1254U1")
         ret = self.parkingLotSystem.Leave(8)
         self.assertEqual(ret[1], "APZ1254U7")
-        ret = self.parkingLotSystem.Leave(8)
 
         #Slot is already empty
+        ret = self.parkingLotSystem.Leave(8)
         self.assertEqual(ret, None)
 
     def test_5_vehicle_registration_number_for_driver_of_age(self):

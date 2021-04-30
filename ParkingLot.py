@@ -13,7 +13,9 @@ class ParkingLotSystem:
     def CreateParkingLot(self, number_of_slots):
         
         ''' Initializes a heap which stores all available slots '''
-
+        
+        if number_of_slots <= 0:
+            return None
         self.number_of_slots = number_of_slots
         for slot_num in range(1, self.number_of_slots + 1):
             self.available_slots.append(slot_num)
@@ -26,8 +28,9 @@ class ParkingLotSystem:
         
         ''' Allocates nearest available slot and stores the information about driver and car '''
 
-        if len(self.available_slots) == 0:
+        if len(self.available_slots) == 0 or driver_age <= 0:
             return None
+
         nearest_available_slot = heapq.heappop(self.available_slots)
         self.slot_info[nearest_available_slot] = (veh_reg_no, driver_age)
         self.vehicle_numbers[veh_reg_no] = nearest_available_slot
